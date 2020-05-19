@@ -1,4 +1,4 @@
-#include "PMTParser.h"
+#include "./include/PMTParser.h"
 #include <vector>
 #include <string>
 #include <iostream>
@@ -11,8 +11,8 @@
 #include "TMath.h"
 
 // command line parsing
-#include "cxxopts.hpp" 
-
+#include "./include/cxxopts.hpp" 
+//./include/... is a temporary way of getting some file organisation.
 
 
 
