@@ -2,10 +2,11 @@
 
 MAIN = readHam
 CXX=g++ #compiler
-CXXFLAGS = -Wall -std=c++11 #compiler flags
-INCLUDES= -I/home/mc/Documents/WATCHMAN/WMUtils/local/include  -Iinclude
-LFLAGS = -L/home/mc/Documents/WATCHMAN/WMUtils/local/lib
-LDFLAGS = -Wl,-rpath,/home/mc/Documents/WATCHMAN/WMUtils/local/lib
+CXXFLAGS = -std=c++11 #compiler flags
+ROOTLIB = ${ROOTSYS}/lib
+INCLUDES= -I$(ROOTLIB) -Iinclude
+LFLAGS = -L$(ROOTLIB)
+LDFLAGS = -Wl,-rpath,$(ROOTLIB)
 LDLIBS = -lCore -lRIO -lRooFit -lRooFitCore -lRooStats -lHist -lTree -lMatrix -lPhysics -lMathCore
 SRC_DIR = src
 OBJ_DIR = obj
@@ -17,7 +18,7 @@ OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 all: $(MAIN)
 
 $(MAIN): $(OBJ)
-	$(CXX) $(CXXFLAGS) $(INCLUDES) $(LDFLAGS) $^ $(LDLIBS) -o $@
+	$(CXX) $(CXXFLAGS) $(INCLUDES) $^ -o $@ $(LFLAGS) $(LDFLAGS) $(LDLIBS) 
     
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 	$(CXX) $(INCLUDES) $(CXXFLAGS) -c $< -o $@
@@ -26,6 +27,6 @@ $(OBJ_DIR):
 	mkdir $@
     
 clean:
-	$(RM) -r $(OBJ_DIR)
+	rm -f $(MAIN)
     
 .PHONY: all clean
